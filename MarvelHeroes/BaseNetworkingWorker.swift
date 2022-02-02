@@ -29,11 +29,6 @@ class BaseNetworkingWorker
         }
         
         if let encoded = completeUrlStr.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),let url = URL(string: encoded){
-
-            //TODO: Quitar
-//            AF.request(url, method: .get, parameters: completeParameters).validate(statusCode: 200..<500).responseJSON { response in
-//                print(response)
-//            }
             
             AF.request(url, method: .get, parameters: completeParameters).validate(statusCode: 200..<500).responseDecodable { (response: DataResponse<MarvelResponse<ModelToUse>, AFError>) in
 

@@ -9,8 +9,7 @@ import Foundation
 import Alamofire
 import CryptoKit
 
-class BaseNetworkingWorker
-{
+class BaseNetworkingWorker{
     
     //To override by each subclass
     public class func servicePath(parametersPath:[String: Any]?) -> String {
@@ -78,5 +77,4 @@ class BaseNetworkingWorker
             String(format: "%02hhx", $0)
         }.joined()
     }
-
 }

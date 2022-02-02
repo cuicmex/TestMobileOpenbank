@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  MarvelHeroes
+
+  Created by Humberto C Trujano Chavez on 31/1/22.
+  
+*/
+
+"gral_Accept"="Accept";
+"gral_Retry"="Retry";
+"gral_msg_errorLoading"="Sorry, we were unable to complete your request, please try again later.";
+
+"detail_lblIntroWebInfo"="Enjoy more of our web content!";

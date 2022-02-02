@@ -18,19 +18,52 @@ class MarvelHeroesTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+
+    func testListCharactersNetworkingWorker() {
+        
+        let promise = expectation(description: "There is result and no error")
+
+        let elementsByPage = 20
+                
+        let parameters = ListCharactersNetworkingWorker.parametersFor(page: 1, limit: elementsByPage)
+        
+        ListCharactersNetworkingWorker.performRequest(parameters: parameters, parametersPath: nil, typeOfModel: ListCharactersInfo.self, completion: { result, error in
+
+            if let result = result, !error {
+                if result.count != elementsByPage {
+                    XCTFail("Number elements inconsistency")
+                }else{
+                    promise.fulfill()
+                }
+                
+            }else{
+                XCTFail("Service error")
+            }
+        })
+
+        wait(for: [promise], timeout: 5)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    func testDetailCharacterNetworkingWorker() {
+        
+        let promise = expectation(description: "There is result and no error")
+
+        let idCharacter = 1017100
+//        let idCharacter = 1
+
+        let parametersPath=[DetailCharacterNetworkingWorker.kKey_idCharacter: idCharacter]
+        
+        DetailCharacterNetworkingWorker.performRequest(parameters: nil, parametersPath: parametersPath, typeOfModel: DetailCharacterInfo.self) { result, error in
+
+            if let result = result, !error {
+                print(result)
+                promise.fulfill()
+            }else{
+                XCTFail("Service error")
+            }
         }
+        
+        wait(for: [promise], timeout: 5)
     }
-
 }
